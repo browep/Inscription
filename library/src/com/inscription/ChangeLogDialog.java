@@ -166,28 +166,7 @@ public class ChangeLogDialog {
         }
     }
 
-    //Returns change log in HTML format 
-    public String getHTML() {
-    	//TODO: Remove duplicate code with the method show()
-        //Get resources
-        final String packageName = mContext.getPackageName();
-        final Resources resources;
-        try {
-            resources = mContext.getPackageManager().getResourcesForApplication(packageName);
-        } catch (NameNotFoundException ignored) {
-            return "";
-        }
-
-        //Create HTML change log
-        return getHTMLChangelog(R.xml.changelog, resources, 0);    	
-    }
-    
-    //Call to show the change log dialog
-    public void show() {
-        show(0);
-    }
-
-    protected void show(final int version) {
+    protected void show(final int version, int changeLogResourceId) {
         //Get resources
         final String packageName = mContext.getPackageName();
         final Resources resources;
@@ -202,7 +181,7 @@ public class ChangeLogDialog {
         title = String.format("%s v%s", title, getAppVersion());
 
         //Create html change log
-        final String htmlChangelog = getHTMLChangelog(R.xml.changelog, resources, version);
+        final String htmlChangelog = getHTMLChangelog(changeLogResourceId, resources, version);
 
         //Get button strings
         final String closeString = resources.getString(R.string.changelog_close);

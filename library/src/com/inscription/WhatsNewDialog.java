@@ -43,19 +43,18 @@ public class WhatsNewDialog extends ChangeLogDialog {
         }
     }
 
-    public void forceShow() {
+    public void forceShow(int changeLogResourceId) {
         //Show only the changes from this version (if available)
-        show(getAppVersionCode());
+        show(getAppVersionCode(), changeLogResourceId);
     }
 
-    @Override
-    public void show() {
+    public void show(int changeLogResourceId) {
         //ToDo check if version is shown
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         final int versionShown = prefs.getInt(WHATS_NEW_LAST_SHOWN, 0);
         if (versionShown != getAppVersionCode()) {
             //This version is new, show only the changes from this version (if available)
-            show(getAppVersionCode());
+            show(getAppVersionCode(), changeLogResourceId);
 
             //Update last shown version
             final SharedPreferences.Editor edit = prefs.edit();
